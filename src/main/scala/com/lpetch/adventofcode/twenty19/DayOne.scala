@@ -16,10 +16,11 @@ object DayOne extends App {
     (inputMass.toFloat / 3).toInt - 2
   }
 
-  val totalModuleMass = Source.fromFile("input/DayOne.txt").getLines.toArray
+  val totalModuleAndFuelMass = Source.fromFile("input/DayOne.txt").getLines.toArray
     .foldLeft(0)((running, current) =>  running + fuelValue(current.toInt) + recursiveFuelRequirement(fuelValue(current.toInt)))
 
-  println("Total Module Mass:" + totalModuleMass)
+
+  println("Total Mass for Module and Fuel:" + totalModuleAndFuelMass)
 }
 
 // take its mass, divide by three, round down, and subtract 2.
