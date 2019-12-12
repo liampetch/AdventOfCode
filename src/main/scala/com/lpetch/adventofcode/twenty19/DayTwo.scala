@@ -17,24 +17,15 @@ object DayTwo extends App {
   def add(pos:Int, program: Array[Int]) = operandOne(pos, program) + operandTwo(pos, program)
   def multiply(pos:Int, program: Array[Int]) = operandOne(pos, program) * operandTwo(pos, program)
 
-  def run(program:Array[Int]): Int = {
-    var pos = 0
-
-    while (true) {
-      if (program(pos) == 1) {
-        program(getStorageLocation(pos, program)) = add(pos, program)
-        pos += 4
-      } else if (program(pos) == 2) {
-        program(getStorageLocation(pos, program)) = multiply(pos, program)
-        pos += 4
-      } else if (program(pos) == 99) {
-        return program(0)
-      } else {
-        println("Something went wrong")
-        return -1
-      }
+  def run(program: Array[Int], pos: Int = 0): Int = {
+    program(pos) match {
+      case 1 => program(getStorageLocation(pos, program)) = add(pos, program)
+        run(program, pos + 4)
+      case 2 => program(getStorageLocation(pos, program)) = multiply(pos, program)
+        run(program, pos + 4)
+      case 99 => program(0)
+      case _ => -1
     }
-    0
   }
 
   for (
@@ -48,5 +39,3 @@ object DayTwo extends App {
     }
   }
 }
-
-// take its mass, divide by three, round down, and subtract 2.
